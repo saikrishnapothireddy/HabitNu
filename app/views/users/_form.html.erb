@@ -1,0 +1,27 @@
+<h1>Sign up</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+      <%= f.label :Profile_pic %>
+      <%= f.file_field :avatar %>
+      <h1></h1>
+      <%= f.submit "Create my account", class: "btn btn-primary" %><h1></h1>
+      <h5><strong>Already a user?</strong> <%= link_to "Log in", login_path %> </h5>
+    <% end %>
+  </div>
+</div>
