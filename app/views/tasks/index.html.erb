@@ -1,29 +1,63 @@
 <% if !logged_in? %>
-    <div class="center jumbotron">
-	  <h1>Welcome to HabitNu</h1>
+  <div class="center jumbotron">
+    <h1>Welcome to HabitNu</h1>
+    <h2>Sign Up to enjoy the ultimate experience in the app</h2>
+    <%= link_to "Sign up now!", new_user_path, class: "btn btn-lg btn-primary" %>
+  </div>
+<% else %>
+  <div class="container">
+    <p style="color: green"><%= notice %></p>
 
-	  <h2>Sign Up to enjoy the ultimate experience in the app</h2>
-
-	  <%= link_to "Sign up now!", new_user_path, class: "btn btn-lg btn-primary" %>
-
-  <% else %>
-    
-  
-<p style="color: green"><%= notice %></p>
-
-<h1>Tasks</h1>
-<%= link_to "Create Task", new_task_path, class: "btn btn-lg btn-primary" %>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <h1>Tasks</h1>
+      </div>
+      <div class="col-md-6 text-right">
+        <%= link_to "Create Task", new_task_path, class: "btn btn-lg btn-primary" %>
+      </div>
+    </div>
 <p></p>
-<div class="task-actions">
-  <%= form_tag(tasks_path, method: :get) do %>
-    <%= select_tag :status, options_for_select(['To Do', 'In Progress', 'Done'], params[:status]), prompt: "All" %>
-    <%= submit_tag "Filter" %>
-  <% end %>
-</div>
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <%= form_tag(tasks_path, method: :get) do %>
+          <%= select_tag :status, options_for_select(['To Do', 'In Progress', 'Done'], params[:status]), prompt: "All", class: "form-control" %>
+          <%= submit_tag "Filter", class: "btn btn-primary mt-2" %>
+        <% end %>
+      </div>
+      <p></p>
+      <div class="col-md-3">
+        <%= form_tag(tasks_path, method: :get, id: "sort-form") do %>
+          <%= select_tag :sort, options_for_select({ "Ascending" => :asc, "Descending" => :desc }, params[:sort]), include_blank: "Sort by Due Date", class: "form-control" %>
+          <%= hidden_field_tag :filter, params[:filter] %>
+        <% end %>
+      </div>
+
+    </div>
 <p></p>
-<%= will_paginate %>
-<% @tasks.each do |task| %>
-  <%= render task %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= will_paginate %>
+      </div>
+    </div>
+
+    <% @tasks.each do |task| %>
+      <%= render task %>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= will_paginate %>
+      </div>
+    </div>
+  </div>
 <% end %>
-<%= will_paginate %>
-<% end %>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const sortForm = document.getElementById("sort-form");
+    const sortSelect = document.querySelector("#sort-form select");
+
+    sortSelect.addEventListener("change", function() {
+      sortForm.submit();
+    });
+  });
+</script>

@@ -11,6 +11,11 @@
     </p>
 
     <p>
+      <strong>Due Date:</strong>
+      <%= task.due_date %>
+    </p>
+
+    <p>
       <strong>Status:</strong>
       <div class="task-actions">
       <%= form_with(model: task, html: { class: "task-form" }) do |form| %>

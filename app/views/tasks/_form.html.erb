@@ -26,5 +26,20 @@
     <%= form.select :status, ['To Do', 'In Progress', 'Done'], { prompt: "Select status" }, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= form.label :due_date %>
+    <%= form.date_field :due_date, class: "datepicker" %>
+  </div>
+
   <%= form.submit "Save", class: "btn btn-primary" %>
 <% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    flatpickr('.datepicker', {
+      dateFormat: 'Y-m-d' // Set the desired date format
+      // You can customize the date picker further here
+    });
+  });
+</script>
+
