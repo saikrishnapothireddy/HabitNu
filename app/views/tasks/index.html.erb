@@ -17,22 +17,21 @@
       </div>
     </div>
 <p></p>
-    <div class="row mb-3">
-      <div class="col-md-3">
-        <%= form_tag(tasks_path, method: :get) do %>
-          <%= select_tag :status, options_for_select(['To Do', 'In Progress', 'Done'], params[:status]), prompt: "All", class: "form-control" %>
-          <%= submit_tag "Filter", class: "btn btn-primary mt-2" %>
-        <% end %>
-      </div>
-      <p></p>
-      <div class="col-md-3">
-        <%= form_tag(tasks_path, method: :get, id: "sort-form") do %>
-          <%= select_tag :sort, options_for_select({ "Ascending" => :asc, "Descending" => :desc }, params[:sort]), include_blank: "Sort by Due Date", class: "form-control" %>
-          <%= hidden_field_tag :filter, params[:filter] %>
-        <% end %>
-      </div>
+<div class="row mb-3">
+<div class="col-md-3">
+  <%= form_tag(tasks_path, method: :get) do %>
+    <%= select_tag :status, options_for_select(['To Do', 'In Progress', 'Done'], params[:status]), prompt: "All", class: "form-control", onchange: "this.form.submit();" %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+  <% end %>
+</div>
+<div class="col-md-3">
+  <%= form_tag(tasks_path, method: :get, id: "sort-form") do %>
+    <%= select_tag :sort, options_for_select({ "Ascending" => :asc, "Descending" => :desc }, params[:sort]), include_blank: "Sort by Due Date", class: "form-control", onchange: "this.form.submit();" %>
+    <%= hidden_field_tag :status, params[:status] %>
+  <% end %>
+</div>
+</div>
 
-    </div>
 <p></p>
     <div class="row">
       <div class="col-md-12">
